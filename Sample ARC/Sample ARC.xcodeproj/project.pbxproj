@@ -1,0 +1,474 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FB8EDACD152310F200546E8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8EDACC152310F200546E8E /* UIKit.framework */; };
+		FB8EDACF152310F200546E8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8EDACE152310F200546E8E /* Foundation.framework */; };
+		FB8EDAD1152310F200546E8E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8EDAD0152310F200546E8E /* CoreGraphics.framework */; };
+		FB8EDAD7152310F200546E8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB8EDAD5152310F200546E8E /* InfoPlist.strings */; };
+		FB8EDAD9152310F200546E8E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8EDAD8152310F200546E8E /* main.m */; };
+		FB8EDADD152310F200546E8E /* SFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8EDADC152310F200546E8E /* SFAppDelegate.m */; };
+		FB8EDAE5152310F300546E8E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8EDAE4152310F200546E8E /* SenTestingKit.framework */; };
+		FB8EDAE6152310F300546E8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8EDACC152310F200546E8E /* UIKit.framework */; };
+		FB8EDAE7152310F300546E8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8EDACE152310F200546E8E /* Foundation.framework */; };
+		FB8EDAEF152310F300546E8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB8EDAED152310F300546E8E /* InfoPlist.strings */; };
+		FB8EDAF2152310F300546E8E /* Sample_ARCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8EDAF1152310F300546E8E /* Sample_ARCTests.m */; };
+		FB8EDAFD1523111B00546E8E /* Sample_ProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8EDAFC1523111B00546E8E /* Sample_ProjectTests.m */; };
+		FB8EDB071523112800546E8E /* NSNotificationCenter+SFObservers.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8EDB001523112800546E8E /* NSNotificationCenter+SFObservers.m */; };
+		FB8EDB081523112800546E8E /* NSObject+SFObservers.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8EDB021523112800546E8E /* NSObject+SFObservers.m */; };
+		FB8EDB091523112800546E8E /* NSObject+SFExecuteOnDealloc.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8EDB051523112800546E8E /* NSObject+SFExecuteOnDealloc.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FB8EDAE8152310F300546E8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB8EDABF152310F100546E8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB8EDAC7152310F200546E8E;
+			remoteInfo = "Sample ARC";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FB8EDAC8152310F200546E8E /* Sample ARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sample ARC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB8EDACC152310F200546E8E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FB8EDACE152310F200546E8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FB8EDAD0152310F200546E8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FB8EDAD4152310F200546E8E /* Sample ARC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sample ARC-Info.plist"; sourceTree = "<group>"; };
+		FB8EDAD6152310F200546E8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FB8EDAD8152310F200546E8E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FB8EDADA152310F200546E8E /* Sample ARC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sample ARC-Prefix.pch"; sourceTree = "<group>"; };
+		FB8EDADB152310F200546E8E /* SFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFAppDelegate.h; sourceTree = "<group>"; };
+		FB8EDADC152310F200546E8E /* SFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFAppDelegate.m; sourceTree = "<group>"; };
+		FB8EDAE3152310F200546E8E /* Sample ARCTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sample ARCTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB8EDAE4152310F200546E8E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		FB8EDAEC152310F300546E8E /* Sample ARCTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sample ARCTests-Info.plist"; sourceTree = "<group>"; };
+		FB8EDAEE152310F300546E8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FB8EDAF0152310F300546E8E /* Sample_ARCTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sample_ARCTests.h; sourceTree = "<group>"; };
+		FB8EDAF1152310F300546E8E /* Sample_ARCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sample_ARCTests.m; sourceTree = "<group>"; };
+		FB8EDAFB1523111B00546E8E /* Sample_ProjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sample_ProjectTests.h; path = "../../Sample Project/Sample ProjectTests/Sample_ProjectTests.h"; sourceTree = "<group>"; };
+		FB8EDAFC1523111B00546E8E /* Sample_ProjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sample_ProjectTests.m; path = "../../Sample Project/Sample ProjectTests/Sample_ProjectTests.m"; sourceTree = "<group>"; };
+		FB8EDAFF1523112800546E8E /* NSNotificationCenter+SFObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+SFObservers.h"; sourceTree = "<group>"; };
+		FB8EDB001523112800546E8E /* NSNotificationCenter+SFObservers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+SFObservers.m"; sourceTree = "<group>"; };
+		FB8EDB011523112800546E8E /* NSObject+SFObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SFObservers.h"; sourceTree = "<group>"; };
+		FB8EDB021523112800546E8E /* NSObject+SFObservers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SFObservers.m"; sourceTree = "<group>"; };
+		FB8EDB041523112800546E8E /* NSObject+SFExecuteOnDealloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SFExecuteOnDealloc.h"; sourceTree = "<group>"; };
+		FB8EDB051523112800546E8E /* NSObject+SFExecuteOnDealloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SFExecuteOnDealloc.m"; sourceTree = "<group>"; };
+		FB8EDB061523112800546E8E /* SFObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFObservers.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FB8EDAC5152310F200546E8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB8EDACD152310F200546E8E /* UIKit.framework in Frameworks */,
+				FB8EDACF152310F200546E8E /* Foundation.framework in Frameworks */,
+				FB8EDAD1152310F200546E8E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB8EDADF152310F200546E8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB8EDAE5152310F300546E8E /* SenTestingKit.framework in Frameworks */,
+				FB8EDAE6152310F300546E8E /* UIKit.framework in Frameworks */,
+				FB8EDAE7152310F300546E8E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FB8EDABD152310F100546E8E = {
+			isa = PBXGroup;
+			children = (
+				FB8EDAD2152310F200546E8E /* Sample ARC */,
+				FB8EDAEA152310F300546E8E /* Sample ARCTests */,
+				FB8EDACB152310F200546E8E /* Frameworks */,
+				FB8EDAC9152310F200546E8E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FB8EDAC9152310F200546E8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB8EDAC8152310F200546E8E /* Sample ARC.app */,
+				FB8EDAE3152310F200546E8E /* Sample ARCTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FB8EDACB152310F200546E8E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB8EDACC152310F200546E8E /* UIKit.framework */,
+				FB8EDACE152310F200546E8E /* Foundation.framework */,
+				FB8EDAD0152310F200546E8E /* CoreGraphics.framework */,
+				FB8EDAE4152310F200546E8E /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FB8EDAD2152310F200546E8E /* Sample ARC */ = {
+			isa = PBXGroup;
+			children = (
+				FB8EDAFE1523112800546E8E /* SFObservers */,
+				FB8EDADB152310F200546E8E /* SFAppDelegate.h */,
+				FB8EDADC152310F200546E8E /* SFAppDelegate.m */,
+				FB8EDAD3152310F200546E8E /* Supporting Files */,
+			);
+			path = "Sample ARC";
+			sourceTree = "<group>";
+		};
+		FB8EDAD3152310F200546E8E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FB8EDAD4152310F200546E8E /* Sample ARC-Info.plist */,
+				FB8EDAD5152310F200546E8E /* InfoPlist.strings */,
+				FB8EDAD8152310F200546E8E /* main.m */,
+				FB8EDADA152310F200546E8E /* Sample ARC-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FB8EDAEA152310F300546E8E /* Sample ARCTests */ = {
+			isa = PBXGroup;
+			children = (
+				FB8EDAFB1523111B00546E8E /* Sample_ProjectTests.h */,
+				FB8EDAFC1523111B00546E8E /* Sample_ProjectTests.m */,
+				FB8EDAF0152310F300546E8E /* Sample_ARCTests.h */,
+				FB8EDAF1152310F300546E8E /* Sample_ARCTests.m */,
+				FB8EDAEB152310F300546E8E /* Supporting Files */,
+			);
+			path = "Sample ARCTests";
+			sourceTree = "<group>";
+		};
+		FB8EDAEB152310F300546E8E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FB8EDAEC152310F300546E8E /* Sample ARCTests-Info.plist */,
+				FB8EDAED152310F300546E8E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FB8EDAFE1523112800546E8E /* SFObservers */ = {
+			isa = PBXGroup;
+			children = (
+				FB8EDB031523112800546E8E /* SFExecuteOnDealloc */,
+				FB8EDAFF1523112800546E8E /* NSNotificationCenter+SFObservers.h */,
+				FB8EDB001523112800546E8E /* NSNotificationCenter+SFObservers.m */,
+				FB8EDB011523112800546E8E /* NSObject+SFObservers.h */,
+				FB8EDB021523112800546E8E /* NSObject+SFObservers.m */,
+				FB8EDB061523112800546E8E /* SFObservers.h */,
+			);
+			name = SFObservers;
+			path = ../../SFObservers;
+			sourceTree = "<group>";
+		};
+		FB8EDB031523112800546E8E /* SFExecuteOnDealloc */ = {
+			isa = PBXGroup;
+			children = (
+				FB8EDB041523112800546E8E /* NSObject+SFExecuteOnDealloc.h */,
+				FB8EDB051523112800546E8E /* NSObject+SFExecuteOnDealloc.m */,
+			);
+			path = SFExecuteOnDealloc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FB8EDAC7152310F200546E8E /* Sample ARC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB8EDAF5152310F300546E8E /* Build configuration list for PBXNativeTarget "Sample ARC" */;
+			buildPhases = (
+				FB8EDAC4152310F200546E8E /* Sources */,
+				FB8EDAC5152310F200546E8E /* Frameworks */,
+				FB8EDAC6152310F200546E8E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sample ARC";
+			productName = "Sample ARC";
+			productReference = FB8EDAC8152310F200546E8E /* Sample ARC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FB8EDAE2152310F200546E8E /* Sample ARCTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB8EDAF8152310F300546E8E /* Build configuration list for PBXNativeTarget "Sample ARCTests" */;
+			buildPhases = (
+				FB8EDADE152310F200546E8E /* Sources */,
+				FB8EDADF152310F200546E8E /* Frameworks */,
+				FB8EDAE0152310F200546E8E /* Resources */,
+				FB8EDAE1152310F200546E8E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB8EDAE9152310F300546E8E /* PBXTargetDependency */,
+			);
+			name = "Sample ARCTests";
+			productName = "Sample ARCTests";
+			productReference = FB8EDAE3152310F200546E8E /* Sample ARCTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FB8EDABF152310F100546E8E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SF;
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = FB8EDAC2152310F100546E8E /* Build configuration list for PBXProject "Sample ARC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FB8EDABD152310F100546E8E;
+			productRefGroup = FB8EDAC9152310F200546E8E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FB8EDAC7152310F200546E8E /* Sample ARC */,
+				FB8EDAE2152310F200546E8E /* Sample ARCTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FB8EDAC6152310F200546E8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB8EDAD7152310F200546E8E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB8EDAE0152310F200546E8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB8EDAEF152310F300546E8E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FB8EDAE1152310F200546E8E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FB8EDAC4152310F200546E8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB8EDAD9152310F200546E8E /* main.m in Sources */,
+				FB8EDADD152310F200546E8E /* SFAppDelegate.m in Sources */,
+				FB8EDB071523112800546E8E /* NSNotificationCenter+SFObservers.m in Sources */,
+				FB8EDB081523112800546E8E /* NSObject+SFObservers.m in Sources */,
+				FB8EDB091523112800546E8E /* NSObject+SFExecuteOnDealloc.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB8EDADE152310F200546E8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB8EDAF2152310F300546E8E /* Sample_ARCTests.m in Sources */,
+				FB8EDAFD1523111B00546E8E /* Sample_ProjectTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FB8EDAE9152310F300546E8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB8EDAC7152310F200546E8E /* Sample ARC */;
+			targetProxy = FB8EDAE8152310F300546E8E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FB8EDAD5152310F200546E8E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB8EDAD6152310F200546E8E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		FB8EDAED152310F300546E8E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB8EDAEE152310F300546E8E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FB8EDAF3152310F300546E8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FB8EDAF4152310F300546E8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FB8EDAF6152310F300546E8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sample ARC/Sample ARC-Prefix.pch";
+				INFOPLIST_FILE = "Sample ARC/Sample ARC-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FB8EDAF7152310F300546E8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sample ARC/Sample ARC-Prefix.pch";
+				INFOPLIST_FILE = "Sample ARC/Sample ARC-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		FB8EDAF9152310F300546E8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Sample ARC.app/Sample ARC";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sample ARC/Sample ARC-Prefix.pch";
+				INFOPLIST_FILE = "Sample ARCTests/Sample ARCTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		FB8EDAFA152310F300546E8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Sample ARC.app/Sample ARC";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sample ARC/Sample ARC-Prefix.pch";
+				INFOPLIST_FILE = "Sample ARCTests/Sample ARCTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FB8EDAC2152310F100546E8E /* Build configuration list for PBXProject "Sample ARC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB8EDAF3152310F300546E8E /* Debug */,
+				FB8EDAF4152310F300546E8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB8EDAF5152310F300546E8E /* Build configuration list for PBXNativeTarget "Sample ARC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB8EDAF6152310F300546E8E /* Debug */,
+				FB8EDAF7152310F300546E8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB8EDAF8152310F300546E8E /* Build configuration list for PBXNativeTarget "Sample ARCTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB8EDAF9152310F300546E8E /* Debug */,
+				FB8EDAFA152310F300546E8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FB8EDABF152310F100546E8E /* Project object */;
+}
