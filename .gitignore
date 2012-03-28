@@ -40,3 +40,6 @@ Backup[ ]of[ ]*.pages/
 Backup[ ]of[ ]*.key/
 Backup[ ]of[ ]*.numbers/
 *.xcuserstate
+Sample Project/Sample Project.xcodeproj/xcuserdata
+Sample ARC/Sample ARC.xcodeproj/xcuserdata
+Sample Project/.idea
