@@ -136,50 +136,51 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
 
 - (void)sf_removeObserver:(id)observer forKeyPath:(NSString *)keyPath
 {
+  if ([self allowMethodForwarding]) {
+#if SF_OBSERVERS_LOG_ORIGINAL_METHODS
+    NSLog(@"Calling original method %@ with parameters %@ %@", NSObjectKVOSFObserversRemoveSelector, observer, keyPath);
+#endif
+    objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
+    return;
+  }
+
   NSMutableDictionary *registeredKeyPaths = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSObjectKVOSFObserversArrayKey));
-  if ([self allowMethodForwarding] || [self sf_removeObserver:observer forKeyPath:keyPath context:nil registeredKeyPaths:registeredKeyPaths]) {
-    if ([self allowMethodForwarding]) {
+  if ([self sf_removeObserver:observer forKeyPath:keyPath context:nil registeredKeyPaths:registeredKeyPaths]) {
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
       NSLog(@"Calling original method %@ with parameters %@ %@", NSObjectKVOSFObserversRemoveSelector, observer, keyPath);
 #endif
-      objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
-    } else {
-      [self setAllowMethodForwarding:YES];
-#if SF_OBSERVERS_LOG_ORIGINAL_METHODS
-      NSLog(@"Calling original method %@ with parameters %@ %@", NSObjectKVOSFObserversRemoveSelector, observer, keyPath);
-#endif
-      objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
-      [self setAllowMethodForwarding:NO];
-    }
+    [self setAllowMethodForwarding:YES];
+    objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
+    [self setAllowMethodForwarding:NO];
   }
 }
 
 - (void)sf_removeObserver:(id)observer forKeyPath:(NSString *)keyPath context:(id)context
 {
-  NSLog(@"Remove observer called with %@ %@ context %@\n", observer, keyPath, context);
+  if ([self allowMethodForwarding]) {
+#if SF_OBSERVERS_LOG_ORIGINAL_METHODS
+      NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, observer, keyPath, context);
+#endif
+    objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
+    return;
+  }
 
   NSMutableDictionary *registeredKeyPaths = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSObjectKVOSFObserversArrayKey));
   if ([self allowMethodForwarding] || [self sf_removeObserver:observer forKeyPath:keyPath context:context registeredKeyPaths:registeredKeyPaths]) {
-    if ([self allowMethodForwarding]) {
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
       NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, observer, keyPath, context);
 #endif
-      objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
-    } else {
-      [self setAllowMethodForwarding:YES];
-#if SF_OBSERVERS_LOG_ORIGINAL_METHODS
-      NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, observer, keyPath, context);
-#endif
-      objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
-      [self setAllowMethodForwarding:NO];
-    }
+    [self setAllowMethodForwarding:YES];
+    objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
+    [self setAllowMethodForwarding:NO];
   }
+
 }
 
 - (BOOL)sf_removeObserver:(id)observer
                forKeyPath:(NSString *)keyPath
                   context:(id)context
-  registeredKeyPaths:(NSMutableDictionary *)registeredKeyPaths
+       registeredKeyPaths:(NSMutableDictionary *)registeredKeyPaths
 {
   __block BOOL result = NO;
   if ([keyPath length] <= 0 && context == nil) {

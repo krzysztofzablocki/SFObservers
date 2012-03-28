@@ -138,42 +138,46 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
 
 - (void)sf_removeObserver:(id)observer
 {
-  NSMutableDictionary *registeredNotifications = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSNotificationCenterSFObserversArrayKey));
-  if ([self allowMethodForwarding] || [self sf_removeObserver:observer name:nil object:nil registeredNotifications:registeredNotifications]) {
-    if ([self allowMethodForwarding]) {
+  if ([self allowMethodForwarding]) {
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
       NSLog(@"Calling original method %@ with parameters %@", NSNotificationCenterSFObserversRemoveSelector, observer);
 #endif
-      objc_msgSend(self, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSelector), observer);
-    } else {
-      [self setAllowMethodForwarding:YES];
-#if SF_OBSERVERS_LOG_ORIGINAL_METHODS
-      NSLog(@"Calling original method %@ with parameters %@", NSNotificationCenterSFObserversRemoveSelector, observer);
-#endif
-      objc_msgSend(self, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSelector), observer);
-      [self setAllowMethodForwarding:NO];
-    }
+    objc_msgSend(self, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSelector), observer);
+    return;
   }
+
+  NSMutableDictionary *registeredNotifications = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSNotificationCenterSFObserversArrayKey));
+  if ([self sf_removeObserver:observer name:nil object:nil registeredNotifications:registeredNotifications]) {
+#if SF_OBSERVERS_LOG_ORIGINAL_METHODS
+      NSLog(@"Calling original method %@ with parameters %@", NSNotificationCenterSFObserversRemoveSelector, observer);
+#endif
+    [self setAllowMethodForwarding:YES];
+    objc_msgSend(self, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSelector), observer);
+    [self setAllowMethodForwarding:NO];
+  }
+
 }
 
 - (void)sf_removeObserver:(id)observer name:(NSString *)aName object:(id)anObject
 {
+  if ([self allowMethodForwarding]) {
+#if SF_OBSERVERS_LOG_ORIGINAL_METHODS
+      NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSNotificationCenterSFObserversRemoveSpecificSelector, observer, aName, anObject);
+#endif
+    objc_msgSend(self, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSpecificSelector), observer, aName, anObject);
+    return;
+  }
+
   NSMutableDictionary *registeredNotifications = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSNotificationCenterSFObserversArrayKey));
   if ([self allowMethodForwarding] || [self sf_removeObserver:observer name:aName object:anObject registeredNotifications:registeredNotifications]) {
-    if ([self allowMethodForwarding]) {
+    [self setAllowMethodForwarding:YES];
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
       NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSNotificationCenterSFObserversRemoveSpecificSelector, observer, aName, anObject);
 #endif
-      objc_msgSend(self, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSpecificSelector), observer, aName, anObject);
-    } else {
-      [self setAllowMethodForwarding:YES];
-#if SF_OBSERVERS_LOG_ORIGINAL_METHODS
-      NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSNotificationCenterSFObserversRemoveSpecificSelector, observer, aName, anObject);
-#endif
-      objc_msgSend(self, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSpecificSelector), observer, aName, anObject);
-      [self setAllowMethodForwarding:NO];
-    }
+    objc_msgSend(self, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSpecificSelector), observer, aName, anObject);
+    [self setAllowMethodForwarding:NO];
   }
+
 }
 
 - (BOOL)sf_removeObserver:(id)observer name:(NSString *)aName object:(id)anObject registeredNotifications:(NSMutableDictionary *)registeredNotifications
