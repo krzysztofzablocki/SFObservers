@@ -47,7 +47,7 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
   class_replaceMethod([self class], aOriginalSelector, method_getImplementation(swappedMethod), method_getTypeEncoding(swappedMethod));
 }
 
-+ (void)initialize
++ (void)load
 {
   //! swap methods
   static dispatch_once_t onceToken;
