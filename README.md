@@ -16,3 +16,10 @@ Installation
 --------------
 
 To use the SFObserver in your app, just drag the class files (demo files and assets are not needed) into your project. And include SFObservers.h in your project Prefix.pch file.
+There is no need to call custom methods, you can include it into existing project and it will work fine.
+
+Tests
+--------------
+
+Repository contains 2 sample projects with some unit tests, one is using ARC and other not. 
+Also you can change SF_OBSERVERS_LOG_ORIGINAL_METHODS value to 1 if you would like to log original methods getting called.
