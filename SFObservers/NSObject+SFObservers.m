@@ -86,6 +86,7 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   }
   __block __SFObserversKVOObserverInfo *observerInfo = nil;
 
+#if !SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
   //! don't allow to add many times the same observer
   [observerInfos enumerateObjectsUsingBlock:^void(id obj, NSUInteger idx, BOOL *stop) {
     __SFObserversKVOObserverInfo *info = obj;
@@ -104,6 +105,11 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
     NSAssert(NO, @"You shouldn't register twice for same keyPath, context");
     return;
   }
+#else
+  observerInfo = [[__SFObserversKVOObserverInfo alloc] init];
+  [observerInfos addObject:observerInfo];
+  AH_RELEASE(observerInfo);
+#endif
 
   observerInfo.keyPath = keyPath;
   observerInfo.context = aContext;

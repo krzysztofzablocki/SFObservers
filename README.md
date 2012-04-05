@@ -1,7 +1,7 @@
 Purpose
 --------------
 SFObservers is an category extension that adds auto removal for Observer pattern in NSNotificationCenter and KVO. By including this into your project, you no longer need to manually remove observers when observer object is deallocated. 
-It also prevents adding more than once the same parameters for observer, you won't add the same observer for the same notification and the same object ever again.
+By default it also prevents adding more than once the same observer - parameters pair, it can be disabled by setting SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS to 1 in SFObservers.h
 
 Supported OS & SDK Versions
 -----------------------------
@@ -18,6 +18,7 @@ Installation
 
 To use the SFObserver in your app, just drag the class files (demo files and assets are not needed) into your project. And include SFObservers.h in your project Prefix.pch file.
 There is no need to call custom methods, you can include it into existing project and it will work fine.
+If you want to allow adding the same observer - parameters pairs, set SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS to 1 in SFObservers.h
 
 Tests
 --------------

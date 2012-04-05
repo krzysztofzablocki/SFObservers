@@ -87,6 +87,7 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
   }
   __block __SFObserversNotificationObserverInfo *observerInfo = nil;
 
+#if !SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
   //! don't allow to add many times the same observer
   [observerInfos enumerateObjectsUsingBlock:^void(id obj, NSUInteger idx, BOOL *stop) {
     __SFObserversNotificationObserverInfo *info = obj;
@@ -105,6 +106,11 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
     NSAssert(NO, @"You shouldn't register twice for same notification, selector, name, object");
     return;
   }
+#else
+  observerInfo = [[__SFObserversNotificationObserverInfo alloc] init];
+  [observerInfos addObject:observerInfo];
+  AH_RELEASE(observerInfo);
+#endif
 
   observerInfo.name = aName;
   observerInfo.object = anObject;
