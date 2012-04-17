@@ -77,8 +77,13 @@
 #endif
 #endif
 
+#ifndef SF_OBSERVERS_LOG_ORIGINAL_METHODS
 #define SF_OBSERVERS_LOG_ORIGINAL_METHODS 0
+#endif
+
+#ifndef SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
 #define SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS 0
+#endif
 
 #import "NSObject+SFExecuteOnDealloc.h"
 #import "NSNotificationCenter+SFObservers.h"
