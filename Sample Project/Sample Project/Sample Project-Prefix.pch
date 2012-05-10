@@ -9,7 +9,7 @@
 #endif
 
 #ifdef __OBJC__
-
+#define SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS 1
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 

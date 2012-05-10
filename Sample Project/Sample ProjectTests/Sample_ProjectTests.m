@@ -52,6 +52,20 @@
   AH_RELEASE(observedObject), observedObject = nil;
 }
 
+- (void)testKVOOverRemoval
+{
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+  [observedObject addObserver:observer forKeyPath:@"class" options:NSKeyValueObservingOptionNew context:nil];
+  [observedObject addObserver:observer forKeyPath:@"whatever" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+
+  [observedObject removeObserver:observer forKeyPath:@"description" context:AH_BRIDGE(self)];
+  [observedObject removeObserver:observer forKeyPath:@"description" context:AH_BRIDGE(self)];
+  [observedObject removeObserver:observer forKeyPath:@"description" context:AH_BRIDGE(self)];
+
+  AH_RELEASE(observer), observer = nil;
+  AH_RELEASE(observedObject), observedObject = nil;
+}
+
 - (void)testKVONotBreakingArray
 {
   NSArray *array = [NSArray array];
@@ -74,7 +88,31 @@
     AH_RELEASE(observedObject), observedObject = nil;
   }
   @catch (NSException *exception1) {
-    STFail(@"Posting notification without removing deallocated observer lead to crash");
+    STFail(@"Exception %@", exception1);
+  }
+}
+
+- (void)testNotificationOverRemoval
+{
+  @try {
+    static NSString *fakeNotification = @"FakeNotification";
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector2) name:fakeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector4) name:nil object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector3) name:nil object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:fakeNotification object:self];
+
+    AH_RELEASE(observer), observer = nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:fakeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OtherNotification" object:self];
+    AH_RELEASE(observedObject), observedObject = nil;
+  }
+  @catch (NSException *exception1) {
+    STFail(@"Exception %@", exception1);
   }
 }
 
@@ -95,7 +133,31 @@
     AH_RELEASE(observedObject), observedObject = nil;
   }
   @catch (NSException *exception1) {
-    STFail(@"Posting notification after removing deallocated observer lead to crash");
+    STFail(@"Exception %@", exception1);
   }
+}
+
+- (void)testNotificationOverObserving
+{
+#if SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
+
+  @try {
+    static NSString *fakeNotification = @"FakeNotification";
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:nil object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:nil object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:observer];
+    [[NSNotificationCenter defaultCenter] postNotificationName:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:fakeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OtherNotification" object:self];
+    AH_RELEASE(observer), observer = nil;
+    AH_RELEASE(observedObject), observedObject = nil;
+  }
+  @catch (NSException *exception1) {
+    STFail(@"Exception %@", exception1);
+  }
+#endif
 }
 @end
