@@ -216,7 +216,7 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
       [observerInfos enumerateObjectsUsingBlock:^void(id innerObj, NSUInteger idx, BOOL *innerStop) {
         __SFObserversKVOObserverInfo *info = innerObj;
 
-        if ((!keyPath || [keyPath isEqualToString:info.keyPath]) && (!context || (context == info.context))) {
+        if ((!keyPath || [keyPath isEqualToString:info.keyPath]) && (context == info.context)) {
           //! remove this info
           [objectsToRemove addObject:innerObj];
 

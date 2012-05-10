@@ -96,6 +96,23 @@
 #endif
 }
 
+- (void)testKVOOverObserving3
+{
+#if SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
+
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+
+  [observedObject removeObserver:observer forKeyPath:@"description" context:nil];
+  [observedObject removeObserver:observer forKeyPath:@"description" context:AH_BRIDGE(self)];
+  [observedObject removeObserver:observer forKeyPath:@"description" context:AH_BRIDGE(self)];
+
+  AH_RELEASE(observer), observer = nil;
+  AH_RELEASE(observedObject), observedObject = nil;
+#endif
+}
+
 
 - (void)testKVONotBreakingArray
 {
@@ -202,6 +219,34 @@
     [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:fakeNotification object:self];
     [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:nil object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:nil object:nil];
+
+    AH_RELEASE(observer), observer = nil;
+    AH_RELEASE(observedObject), observedObject = nil;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:fakeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OtherNotification" object:self];
+  }
+  @catch (NSException *exception1) {
+    STFail(@"Exception %@", exception1);
+  }
+#endif
+}
+
+- (void)testNotificationOverObserving3
+{
+#if SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
+
+  @try {
+    static NSString *fakeNotification = @"FakeNotification";
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:nil object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:nil object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:nil object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:fakeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:fakeNotification object:self];
 
     AH_RELEASE(observer), observer = nil;
     AH_RELEASE(observedObject), observedObject = nil;
