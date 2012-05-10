@@ -66,6 +66,37 @@
   AH_RELEASE(observedObject), observedObject = nil;
 }
 
+- (void)testKVOOverObserving
+{
+#if SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
+
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+
+  [observedObject removeObserver:observer forKeyPath:@"description" context:AH_BRIDGE(self)];
+  [observedObject removeObserver:observer forKeyPath:@"description" context:AH_BRIDGE(self)];
+  [observedObject removeObserver:observer forKeyPath:@"description" context:AH_BRIDGE(self)];
+
+  AH_RELEASE(observer), observer = nil;
+  AH_RELEASE(observedObject), observedObject = nil;
+#endif
+}
+
+- (void)testKVOOverObserving2
+{
+#if SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
+
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:AH_BRIDGE(self)];
+
+  AH_RELEASE(observer), observer = nil;
+  AH_RELEASE(observedObject), observedObject = nil;
+#endif
+}
+
+
 - (void)testKVONotBreakingArray
 {
   NSArray *array = [NSArray array];
@@ -154,6 +185,30 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"OtherNotification" object:self];
     AH_RELEASE(observer), observer = nil;
     AH_RELEASE(observedObject), observedObject = nil;
+  }
+  @catch (NSException *exception1) {
+    STFail(@"Exception %@", exception1);
+  }
+#endif
+}
+
+- (void)testNotificationOverObserving2
+{
+#if SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
+
+  @try {
+    static NSString *fakeNotification = @"FakeNotification";
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:nil object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(unsupportedSelector) name:nil object:nil];
+
+    AH_RELEASE(observer), observer = nil;
+    AH_RELEASE(observedObject), observedObject = nil;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:fakeNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:fakeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OtherNotification" object:self];
   }
   @catch (NSException *exception1) {
     STFail(@"Exception %@", exception1);

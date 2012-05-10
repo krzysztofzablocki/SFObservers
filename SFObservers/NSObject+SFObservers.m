@@ -120,13 +120,16 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   __unsafe_unretained __block id weakContext = aContext;
 
   void *key = [observer performBlockOnDealloc:^{
-    if ([weakSelf sf_removeObserver:weakObserver forKeyPath:keyPath context:weakContext registeredKeyPaths:registeredKeyPaths]) {
-      [self setAllowMethodForwarding:YES];
+    int numberOfRemovals = 0;
+    if ((numberOfRemovals = [weakSelf sf_removeObserver:weakObserver forKeyPath:keyPath context:weakContext registeredKeyPaths:registeredKeyPaths])) {
+      for (int i = 0; i < numberOfRemovals; ++i) {
+        [self setAllowMethodForwarding:YES];
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
-      NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, weakObserver, keyPath, weakContext);
+        NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, weakObserver, keyPath, weakContext);
 #endif
-      objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), weakObserver, keyPath, weakContext);
-      [self setAllowMethodForwarding:NO];
+        objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), weakObserver, keyPath, weakContext);
+        [self setAllowMethodForwarding:NO];
+      }
     }
   }];
 
@@ -151,13 +154,16 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   }
 
   NSMutableDictionary *registeredKeyPaths = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSObjectKVOSFObserversArrayKey));
-  if ([self sf_removeObserver:observer forKeyPath:keyPath context:nil registeredKeyPaths:registeredKeyPaths]) {
+  int numberOfRemovals = 0;
+  if ((numberOfRemovals = [self sf_removeObserver:observer forKeyPath:keyPath context:nil registeredKeyPaths:registeredKeyPaths])) {
+    for (int i = 0; i < numberOfRemovals; ++i) {
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
       NSLog(@"Calling original method %@ with parameters %@ %@", NSObjectKVOSFObserversRemoveSelector, observer, keyPath);
 #endif
-    [self setAllowMethodForwarding:YES];
-    objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
-    [self setAllowMethodForwarding:NO];
+      [self setAllowMethodForwarding:YES];
+      objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
+      [self setAllowMethodForwarding:NO];
+    }
   }
 }
 
@@ -165,30 +171,33 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
 {
   if ([self allowMethodForwarding]) {
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
-      NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, observer, keyPath, context);
+    NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, observer, keyPath, context);
 #endif
     objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
     return;
   }
 
   NSMutableDictionary *registeredKeyPaths = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSObjectKVOSFObserversArrayKey));
-  if ([self allowMethodForwarding] || [self sf_removeObserver:observer forKeyPath:keyPath context:context registeredKeyPaths:registeredKeyPaths]) {
+  int numberOfRemovals = 0;
+  if ([self allowMethodForwarding] || (numberOfRemovals = [self sf_removeObserver:observer forKeyPath:keyPath context:context registeredKeyPaths:registeredKeyPaths])) {
+    for (int i = 0; i < numberOfRemovals; ++i) {
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
       NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, observer, keyPath, context);
 #endif
-    [self setAllowMethodForwarding:YES];
-    objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
-    [self setAllowMethodForwarding:NO];
+      [self setAllowMethodForwarding:YES];
+      objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
+      [self setAllowMethodForwarding:NO];
+    }
   }
 
 }
 
-- (BOOL)sf_removeObserver:(id)observer
-               forKeyPath:(NSString *)keyPath
-                  context:(id)context
-       registeredKeyPaths:(NSMutableDictionary *)registeredKeyPaths
+- (NSUInteger)sf_removeObserver:(id)observer
+                     forKeyPath:(NSString *)keyPath
+                        context:(id)context
+             registeredKeyPaths:(NSMutableDictionary *)registeredKeyPaths
 {
-  __block BOOL result = NO;
+  __block NSUInteger result = 0;
   if ([keyPath length] <= 0 && context == nil) {
     //! don't need to execute block on dealloc so cleanup
     [registeredKeyPaths enumerateKeysAndObjectsUsingBlock:^void(id key, id obj, BOOL *stop) {
@@ -199,7 +208,7 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
       }];
     }];
     [registeredKeyPaths removeAllObjects];
-    return YES;
+    return 1;
   } else {
     [registeredKeyPaths enumerateKeysAndObjectsUsingBlock:^void(id key, id obj, BOOL *stop) {
       NSMutableArray *observerInfos = obj;
@@ -218,8 +227,13 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
 
       //! remove all collected objects
       if ([objectsToRemove count] > 0) {
+        //! multiple registrations should match unregistrations
+#if SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS
+        result = [objectsToRemove count];
+#else
+        result  = 1;
+#endif
         [observerInfos removeObjectsInArray:objectsToRemove];
-        result = YES;
       }
     }];
   }
