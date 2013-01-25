@@ -221,7 +221,7 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
           [objectsToRemove addObject:innerObj];
 
           //! cancel dealloc blocks
-          [innerObj cancelDeallocBlockWithKey:info.blockKey];
+          [observer cancelDeallocBlockWithKey:info.blockKey];
         }
       }];
 
