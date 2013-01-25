@@ -124,12 +124,12 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
     int numberOfRemovals = 0;
     if ((numberOfRemovals = [weakSelf sf_removeObserver:weakObserver name:aName object:weakObject registeredNotifications:registeredNotifications])) {
       for (int i = 0; i < numberOfRemovals; ++i) {
-        [self setAllowMethodForwarding:YES];
+        [weakSelf setAllowMethodForwarding:YES];
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
         NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSNotificationCenterSFObserversRemoveSpecificSelector, weakObserver, aName, weakObject);
 #endif
         objc_msgSend(weakSelf, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSpecificSelector), weakObserver, aName, weakObject);
-        [self setAllowMethodForwarding:NO];
+        [weakSelf setAllowMethodForwarding:NO];
       }
     }
   }];
