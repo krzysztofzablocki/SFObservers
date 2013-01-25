@@ -123,12 +123,12 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
     int numberOfRemovals = 0;
     if ((numberOfRemovals = [weakSelf sf_removeObserver:weakObserver forKeyPath:keyPath context:weakContext registeredKeyPaths:registeredKeyPaths])) {
       for (int i = 0; i < numberOfRemovals; ++i) {
-        [self setAllowMethodForwarding:YES];
+        [weakSelf setAllowMethodForwarding:YES];
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
         NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, weakObserver, keyPath, weakContext);
 #endif
-        objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), weakObserver, keyPath, weakContext);
-        [self setAllowMethodForwarding:NO];
+        objc_msgSend(weakSelf, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), weakObserver, keyPath, weakContext);
+        [weakSelf setAllowMethodForwarding:NO];
       }
     }
   }];
