@@ -221,7 +221,7 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
           [objectsToRemove addObject:innerObj];
 
           //! cancel dealloc block
-          [innerObj cancelDeallocBlockWithKey:info.blockKey];
+          [observer cancelDeallocBlockWithKey:info.blockKey];
         }
       }];
 
