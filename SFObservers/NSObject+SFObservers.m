@@ -17,13 +17,14 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
 @interface __SFObserversKVOObserverInfo : NSObject
 @property(nonatomic, copy) NSString *keyPath;
 @property(nonatomic, AH_WEAK) id context;
-@property(nonatomic, assign) void *blockKey;
+@property(nonatomic, assign) void *observerBlockKey;
+@property(nonatomic, assign) void *observeeBlockKey;
 @end
 
 @implementation __SFObserversKVOObserverInfo
 @synthesize keyPath;
 @synthesize context;
-@synthesize blockKey;
+@synthesize observerBlockKey;
 
 - (void)dealloc
 {
@@ -42,8 +43,8 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   Method swappedMethod = class_getInstanceMethod(self, aSwappedSelector);
 
   SEL newSelector = NSSelectorFromString([NSString stringWithFormat:@"sf_original_%@", NSStringFromSelector(aOriginalSelector)]);
-  class_addMethod([self class], newSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-  class_replaceMethod([self class], aOriginalSelector, method_getImplementation(swappedMethod), method_getTypeEncoding(swappedMethod));
+  class_addMethod([NSObject class], newSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+  class_replaceMethod([NSObject class], aOriginalSelector, method_getImplementation(swappedMethod), method_getTypeEncoding(swappedMethod));
 }
 
 + (void)load
@@ -132,9 +133,23 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
       }
     }
   }];
+    
+  void *observeeKey = [self performBlockOnDealloc:^{
+      int numberOfRemovals = 0;
+      if ((numberOfRemovals = [weakSelf sf_removeObserver:weakObserver forKeyPath:keyPath context:weakContext registeredKeyPaths:registeredKeyPaths])) {
+          for (int i = 0; i < numberOfRemovals; ++i) {
+              [weakSelf setAllowMethodForwarding:YES];
+#if SF_OBSERVERS_LOG_ORIGINAL_METHODS
+          NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, weakObserver, keyPath, weakContext);
+#endif
+              objc_msgSend(weakSelf, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), weakObserver, keyPath, weakContext);
+              [weakSelf setAllowMethodForwarding:NO];
+          }
+      }
+  }];
 
-  observerInfo.blockKey = key;
-
+  observerInfo.observerBlockKey = key;
+  observerInfo.observeeBlockKey = observeeKey;
   //! call originalMethod
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
   NSLog(@"Calling original method %@ with parameters %@ %@ %d %@", NSObjectKVOSFObserversAddSelector, observer, keyPath, options, aContext);
@@ -198,13 +213,16 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
              registeredKeyPaths:(NSMutableDictionary *)registeredKeyPaths
 {
   __block NSUInteger result = 0;
+  __unsafe_unretained __block id weakSelf = self;
+    
   if ([keyPath length] <= 0 && context == nil) {
     //! don't need to execute block on dealloc so cleanup
     [registeredKeyPaths enumerateKeysAndObjectsUsingBlock:^void(id key, id obj, BOOL *stop) {
       NSMutableArray *observerInfos = obj;
       [observerInfos enumerateObjectsUsingBlock:^void(id innerObj, NSUInteger idx, BOOL *innerStop) {
         __SFObserversKVOObserverInfo *info = innerObj;
-        [observer cancelDeallocBlockWithKey:info.blockKey];
+        [observer cancelDeallocBlockWithKey:info.observerBlockKey];
+        [weakSelf cancelDeallocBlockWithKey:info.observeeBlockKey];
       }];
     }];
     [registeredKeyPaths removeAllObjects];
@@ -221,7 +239,8 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
           [objectsToRemove addObject:innerObj];
 
           //! cancel dealloc block
-          [observer cancelDeallocBlockWithKey:info.blockKey];
+          [observer cancelDeallocBlockWithKey:info.observerBlockKey];
+          [weakSelf cancelDeallocBlockWithKey:info.observeeBlockKey];
         }
       }];
 
