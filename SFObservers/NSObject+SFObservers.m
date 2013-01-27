@@ -52,9 +52,9 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     @autoreleasepool {
-      [self sf_swapSelector:@selector(addObserver:forKeyPath:options:context:) withSelector:@selector(sf_addObserver:forKeyPath:options:context:)];
-      [self sf_swapSelector:@selector(removeObserver:forKeyPath:) withSelector:@selector(sf_removeObserver:forKeyPath:)];
-      [self sf_swapSelector:@selector(removeObserver:forKeyPath:context:) withSelector:@selector(sf_removeObserver:forKeyPath:context:)];
+      [NSObject sf_swapSelector:@selector(addObserver:forKeyPath:options:context:) withSelector:@selector(sf_addObserver:forKeyPath:options:context:)];
+      [NSObject sf_swapSelector:@selector(removeObserver:forKeyPath:) withSelector:@selector(sf_removeObserver:forKeyPath:)];
+      [NSObject sf_swapSelector:@selector(removeObserver:forKeyPath:context:) withSelector:@selector(sf_removeObserver:forKeyPath:context:)];
     }
   });
 }
