@@ -42,8 +42,8 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   Method swappedMethod = class_getInstanceMethod(self, aSwappedSelector);
 
   SEL newSelector = NSSelectorFromString([NSString stringWithFormat:@"sf_original_%@", NSStringFromSelector(aOriginalSelector)]);
-  class_addMethod([self class], newSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-  class_replaceMethod([self class], aOriginalSelector, method_getImplementation(swappedMethod), method_getTypeEncoding(swappedMethod));
+  class_addMethod([NSObject class], newSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+  class_replaceMethod([NSObject class], aOriginalSelector, method_getImplementation(swappedMethod), method_getTypeEncoding(swappedMethod));
 }
 
 + (void)load
