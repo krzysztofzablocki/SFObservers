@@ -53,9 +53,9 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     @autoreleasepool {
-      [self sf_swapSelector:@selector(addObserver:selector:name:object:) withSelector:@selector(sf_addObserver:selector:name:object:)];
-      [self sf_swapSelector:@selector(removeObserver:) withSelector:@selector(sf_removeObserver:)];
-      [self sf_swapSelector:@selector(removeObserver:name:object:) withSelector:@selector(sf_removeObserver:name:object:)];
+      [NSNotificationCenter sf_swapSelector:@selector(addObserver:selector:name:object:) withSelector:@selector(sf_addObserver:selector:name:object:)];
+      [NSNotificationCenter sf_swapSelector:@selector(removeObserver:) withSelector:@selector(sf_removeObserver:)];
+      [NSNotificationCenter sf_swapSelector:@selector(removeObserver:name:object:) withSelector:@selector(sf_removeObserver:name:object:)];
     }
   });
 }
