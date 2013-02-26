@@ -116,9 +116,9 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
   observerInfo.object = anObject;
 
   //! Add auto remove when observer is going to be deallocated
-  __unsafe_unretained __block id weakSelf = self;
-  __unsafe_unretained __block id weakObserver = observer;
-  __unsafe_unretained __block id weakObject = anObject;
+  __AH_WEAK __block id weakSelf = self;
+  __AH_WEAK __block id weakObserver = observer;
+  __AH_WEAK __block id weakObject = anObject;
 
   void *key = [observer performBlockOnDealloc:^{
     int numberOfRemovals = 0;
