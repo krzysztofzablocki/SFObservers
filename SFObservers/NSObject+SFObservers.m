@@ -115,8 +115,8 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   observerInfo.context = aContext;
 
   //! Add auto remove when observer is going to be deallocated
-  __unsafe_unretained __block id weakSelf = self;
-  __unsafe_unretained __block id weakObserver = observer;
+  __AH_WEAK __block id weakSelf = self;
+  __AH_WEAK __block id weakObserver = observer;
 
   void *key = [observer performBlockOnDealloc:^{
     int numberOfRemovals = 0;
