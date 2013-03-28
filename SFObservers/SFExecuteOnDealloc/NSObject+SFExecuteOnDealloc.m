@@ -10,20 +10,21 @@
 #import "SFObservers.h"
 
 @interface SFExecuteOnDeallocInternalObject : NSObject
-@property(nonatomic, copy) void (^block)();
+@property(nonatomic, copy) void (^block)(id);
+@property(nonatomic, assign) __unsafe_unretained id obj;
 
-- (id)initWithBlock:(void(^)(void))aBlock;
+- (id)initWithBlock:(void (^)(id))aBlock;
 @end
 
 @implementation SFExecuteOnDeallocInternalObject {
 
-  void(^block)(void);
+  void(^block)(id);
 
 }
 @synthesize block;
 
 
-- (id)initWithBlock:(void(^)(void))aBlock
+- (id)initWithBlock:(void (^)(id))aBlock
 {
   self = [super init];
   if (self) {
@@ -35,7 +36,7 @@
 - (void)dealloc
 {
   if (block) {
-    block();
+    block(_obj);
     AH_RELEASE(block);
   }
   AH_SUPER_DEALLOC;
@@ -44,18 +45,21 @@
 
 @implementation NSObject (SFExecuteOnDealloc)
 #if SF_EXECUTE_ON_DEALLOC_USE_SHORTHAND
-- (void *)performBlockOnDealloc:(void(^)(void))aBlock
+- (void *)performBlockOnDealloc:(void (^)(id))aBlock
 #else
 - (void*)sf_performBlockOnDealloc:(void(^)(void))aBlock
 #endif
 {
   //! we need some object that will be deallocated with this one, and since we are only assigning and never again needing access to this object, let use its memory adress as key
   SFExecuteOnDeallocInternalObject *internalObject = [[SFExecuteOnDeallocInternalObject alloc] initWithBlock:aBlock];
+  internalObject.obj = self;
   objc_setAssociatedObject(self, AH_BRIDGE(internalObject), internalObject, OBJC_ASSOCIATION_RETAIN);
   AH_RELEASE(internalObject);
   return AH_BRIDGE(internalObject);
 }
+
 #if SF_EXECUTE_ON_DEALLOC_USE_SHORTHAND
+
 - (void)cancelDeallocBlockWithKey:(void *)blockKey
 #else
 - (void)sf_cancelDeallocBlockWithKey:(void*)blockKey

@@ -66,7 +66,7 @@
 
 @interface NSObject (SFExecuteOnDealloc)
 #if SF_EXECUTE_ON_DEALLOC_USE_SHORTHAND
-- (void *)performBlockOnDealloc:(void(^)(void))aBlock;
+- (void *)performBlockOnDealloc:(void (^)(id))aBlock;
 
 - (void)cancelDeallocBlockWithKey:(void *)blockKey;
 #else

@@ -45,10 +45,10 @@
 
 - (void)testKVOAutoRemovalWithIntegerContext
 {
-    static NSInteger SomeIntegerContext;
-    [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:&SomeIntegerContext];
-    AH_RELEASE(observer), observer = nil;
-    AH_RELEASE(observedObject), observedObject = nil;
+  static NSInteger SomeIntegerContext;
+  [observedObject addObserver:observer forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:&SomeIntegerContext];
+  AH_RELEASE(observer), observer = nil;
+  AH_RELEASE(observedObject), observedObject = nil;
 }
 
 - (void)testKVOAutoRemovalMultiple

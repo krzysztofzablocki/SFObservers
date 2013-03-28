@@ -117,18 +117,18 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
 
   //! Add auto remove when observer is going to be deallocated
   __AH_WEAK __block id weakSelf = self;
-  __AH_WEAK __block id weakObserver = observer;
   __AH_WEAK __block id weakObject = anObject;
 
-  void *key = [observer performBlockOnDealloc:^{
+  void *key = [observer performBlockOnDealloc:^(id obj){
+    id strongObserver = obj;
     int numberOfRemovals = 0;
-    if ((numberOfRemovals = [weakSelf sf_removeObserver:weakObserver name:aName object:weakObject registeredNotifications:registeredNotifications])) {
+    if ((numberOfRemovals = [weakSelf sf_removeObserver:strongObserver name:aName object:weakObject registeredNotifications:registeredNotifications])) {
       for (int i = 0; i < numberOfRemovals; ++i) {
         [weakSelf setAllowMethodForwarding:YES];
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
-        NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSNotificationCenterSFObserversRemoveSpecificSelector, weakObserver, aName, weakObject);
+        NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSNotificationCenterSFObserversRemoveSpecificSelector, strongObserver, aName, weakObject);
 #endif
-        objc_msgSend(weakSelf, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSpecificSelector), weakObserver, aName, weakObject);
+        objc_msgSend(weakSelf, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSpecificSelector), strongObserver, aName, weakObject);
         [weakSelf setAllowMethodForwarding:NO];
       }
     }
