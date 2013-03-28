@@ -20,6 +20,10 @@ To use the SFObserver in your app, just drag the class files (demo files and ass
 There is no need to call custom methods, you can include it into existing project and it will work fine.
 If you want to allow adding the same observer - parameters pairs, set SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS to 1 in SFObservers.h
 
+A [Cocoapods](cocoapods.org) spec is also available, just add this line to your Podfile:
+
+    pod 'SFObservers', '~> 1.0'
+
 Tests
 --------------
 
