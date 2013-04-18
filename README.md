@@ -3,6 +3,8 @@ Purpose
 SFObservers is an category extension that adds auto removal for Observer pattern in NSNotificationCenter and KVO. By including this into your project, you no longer need to manually remove observers when observer object is deallocated. 
 By default it also prevents adding more than once the same observer - parameters pair, it can be disabled by setting SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS to 1 in SFObservers.h
 
+[Follow me on twitter][1]
+
 Supported OS & SDK Versions
 -----------------------------
 
@@ -20,7 +22,7 @@ To use the SFObserver in your app, just drag the class files (demo files and ass
 There is no need to call custom methods, you can include it into existing project and it will work fine.
 If you want to allow adding the same observer - parameters pairs, set SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS to 1 in SFObservers.h
 
-A [Cocoapods](cocoapods.org) spec is also available, just add this line to your Podfile:
+A [Cocoapods][2] spec is also available, just add this line to your Podfile:
 
     pod 'SFObservers', '~> 1.0'
 
@@ -29,3 +31,6 @@ Tests
 
 Repository contains 2 sample projects with some unit tests, one is using ARC and other not. 
 Also you can change SF_OBSERVERS_LOG_ORIGINAL_METHODS value to 1 if you would like to log original methods getting called.
+
+ [1]: http://twitter.com/merowing_
+ [2]: http://cocoapods.org
