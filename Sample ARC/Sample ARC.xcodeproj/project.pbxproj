@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E291DFA62D2E1C05F5E83435 /* SFObservationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = E291DA531F0CDF8B63222177 /* SFObservationHandler.m */; };
 		FB8EDACD152310F200546E8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8EDACC152310F200546E8E /* UIKit.framework */; };
 		FB8EDACF152310F200546E8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8EDACE152310F200546E8E /* Foundation.framework */; };
 		FB8EDAD1152310F200546E8E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8EDAD0152310F200546E8E /* CoreGraphics.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E291D59FF5BBB53781D29866 /* SFObservationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFObservationHandler.h; sourceTree = "<group>"; };
+		E291DA531F0CDF8B63222177 /* SFObservationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFObservationHandler.m; sourceTree = "<group>"; };
 		FB8EDAC8152310F200546E8E /* Sample ARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sample ARC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB8EDACC152310F200546E8E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FB8EDACE152310F200546E8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -86,6 +89,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E291DC383F0FD11D28E1514F /* SFObservationHandler */ = {
+			isa = PBXGroup;
+			children = (
+				E291DA531F0CDF8B63222177 /* SFObservationHandler.m */,
+				E291D59FF5BBB53781D29866 /* SFObservationHandler.h */,
+			);
+			path = SFObservationHandler;
+			sourceTree = "<group>";
+		};
 		FB8EDABD152310F100546E8E = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +180,7 @@
 				FB8EDB011523112800546E8E /* NSObject+SFObservers.h */,
 				FB8EDB021523112800546E8E /* NSObject+SFObservers.m */,
 				FB8EDB061523112800546E8E /* SFObservers.h */,
+				E291DC383F0FD11D28E1514F /* SFObservationHandler */,
 			);
 			name = SFObservers;
 			path = ../../SFObservers;
@@ -293,6 +306,7 @@
 				FB8EDB071523112800546E8E /* NSNotificationCenter+SFObservers.m in Sources */,
 				FB8EDB081523112800546E8E /* NSObject+SFObservers.m in Sources */,
 				FB8EDB091523112800546E8E /* NSObject+SFExecuteOnDealloc.m in Sources */,
+				E291DFA62D2E1C05F5E83435 /* SFObservationHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,4 +7,5 @@
 #import "SFObservers.h"
 
 @interface NSObject (SFObservers)
+@property(nonatomic, assign) BOOL sf_useOriginalMethods;
 @end
