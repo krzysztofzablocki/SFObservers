@@ -121,9 +121,9 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
 
   void *key = [observer performBlockOnDealloc:^(id obj){
     id strongObserver = obj;
-    int numberOfRemovals = 0;
+    NSInteger numberOfRemovals = 0;
     if ((numberOfRemovals = [weakSelf sf_removeObserver:strongObserver name:aName object:weakObject registeredNotifications:registeredNotifications])) {
-      for (int i = 0; i < numberOfRemovals; ++i) {
+      for (NSInteger i = 0; i < numberOfRemovals; ++i) {
         [weakSelf setAllowMethodForwarding:YES];
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
         NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSNotificationCenterSFObserversRemoveSpecificSelector, strongObserver, aName, weakObject);
@@ -156,9 +156,9 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
   }
 
   NSMutableDictionary *registeredNotifications = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSNotificationCenterSFObserversArrayKey));
-  int numberOfRemovals = 0;
+  NSInteger numberOfRemovals = 0;
   if ((numberOfRemovals = [self sf_removeObserver:observer name:nil object:nil registeredNotifications:registeredNotifications])) {
-    for (int i = 0; i < numberOfRemovals; ++i) {
+    for (NSInteger i = 0; i < numberOfRemovals; ++i) {
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
       NSLog(@"Calling original method %@ with parameters %@", NSNotificationCenterSFObserversRemoveSelector, observer);
 #endif
@@ -181,7 +181,7 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
   }
 
   NSMutableDictionary *registeredNotifications = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSNotificationCenterSFObserversArrayKey));
-  int numberOfRemovals = 0;
+  NSInteger numberOfRemovals = 0;
   if ([self allowMethodForwarding] || (numberOfRemovals = [self sf_removeObserver:observer name:aName object:anObject registeredNotifications:registeredNotifications])) {
     [self setAllowMethodForwarding:YES];
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
