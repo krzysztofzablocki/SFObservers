@@ -119,9 +119,9 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
 
   void *key = [observer performBlockOnDealloc:^(id obj){
     id strongObserver = obj;
-    int numberOfRemovals = 0;
+    NSInteger numberOfRemovals = 0;
     if ((numberOfRemovals = [weakSelf sf_removeObserver:strongObserver forKeyPath:keyPath context:aContext registeredKeyPaths:registeredKeyPaths])) {
-      for (int i = 0; i < numberOfRemovals; ++i) {
+      for (NSInteger i = 0; i < numberOfRemovals; ++i) {
         [weakSelf setAllowMethodForwarding:YES];
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
         NSLog(@"Calling original method %@ with parameters %@ %@ %p", NSObjectKVOSFObserversRemoveSpecificSelector, strongObserver, keyPath, aContext);
@@ -153,9 +153,9 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   }
 
   NSMutableDictionary *registeredKeyPaths = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSObjectKVOSFObserversArrayKey));
-  int numberOfRemovals = 0;
+  NSInteger numberOfRemovals = 0;
   if ((numberOfRemovals = [self sf_removeObserver:observer forKeyPath:keyPath context:nil registeredKeyPaths:registeredKeyPaths])) {
-    for (int i = 0; i < numberOfRemovals; ++i) {
+    for (NSInteger i = 0; i < numberOfRemovals; ++i) {
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
       NSLog(@"Calling original method %@ with parameters %@ %@", NSObjectKVOSFObserversRemoveSelector, observer, keyPath);
 #endif
@@ -177,9 +177,9 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   }
 
   NSMutableDictionary *registeredKeyPaths = (NSMutableDictionary *)objc_getAssociatedObject(observer, AH_BRIDGE(NSObjectKVOSFObserversArrayKey));
-  int numberOfRemovals = 0;
+  NSInteger numberOfRemovals = 0;
   if ([self allowMethodForwarding] || (numberOfRemovals = [self sf_removeObserver:observer forKeyPath:keyPath context:context registeredKeyPaths:registeredKeyPaths])) {
-    for (int i = 0; i < numberOfRemovals; ++i) {
+    for (NSInteger i = 0; i < numberOfRemovals; ++i) {
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
       NSLog(@"Calling original method %@ with parameters %@ %@ %p", NSObjectKVOSFObserversRemoveSpecificSelector, observer, keyPath, context);
 #endif
