@@ -1,6 +1,11 @@
+
+### UPDATE: I'm no longer using SFObservers in any project, but will still accept pull requests for improvements.
+
 Purpose
 --------------
-SFObservers is an category extension that adds auto removal for Observer pattern in NSNotificationCenter and KVO. By including this into your project, you no longer need to manually remove observers when observer object is deallocated. 
+SFObservers is an category extension that adds auto removal for Observer pattern in NSNotificationCenter and KVO. 
+
+By including this into your project, you no longer need to manually remove observers when observer object is deallocated. 
 By default it also prevents adding more than once the same observer - parameters pair, it can be disabled by setting SF_OBSERVERS_ALLOW_MULTIPLE_REGISTRATIONS to 1 in SFObservers.h
 
 [Follow me on twitter][1]
